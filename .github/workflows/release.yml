@@ -12,11 +12,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Prepare
-        run: build/make_release -t ${{ runner.temp }}/jasper/tmp -w ${{ github.workspace }} -o ${{ runner.temp }}/jasper/output
+        run: build/make_release -t ${{ runner.temp }}
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          files: jasper.tar.gz
-          body_path: ${{ runner.temp }}/jasper/output/release_notes.txt
+          body_path: ${{ runner.temp }}/release_notes.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
