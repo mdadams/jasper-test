@@ -1,0 +1,41 @@
+#! /usr/bin/env bash
+
+panic()
+{
+	echo "ERROR"
+	exit 1
+}
+
+cmd_dir="$(dirname "$0")" || panic
+news_file="$cmd_dir/../NEWS"
+
+usage()
+{
+	echo "bad usage"
+	exit 2
+}
+
+tmp_dir=
+
+while getopts t: opt; do
+	case "$opt" in
+	t)
+		tmp_dir="$OPTARG";;
+	\?)
+		usage
+		break;;
+	esac
+done
+shift $((OPTIND - 1))
+
+if [ -z "$tmp_dir" ]; then
+	usage
+fi
+
+if [ ! -d "$tmp_dir" ]; then
+	mkdir -p "$tmp_dir" || panic
+fi
+
+release_notes_file="$tmp_dir/release_notes.txt"
+
+"$cmd_dir"/extract_release_notes < "$news_file" > "$release_notes_file" || panic
