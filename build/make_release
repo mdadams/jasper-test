@@ -140,3 +140,4 @@ done
 
 tar -C "$tmp_dir" -czf - "$name" > "$archive_file" || \
   panic "cannot make archive"
+
