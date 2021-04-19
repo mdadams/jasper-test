@@ -60,6 +60,8 @@ fi
 echo "temporary directory: $tmp_dir"
 echo "workspace directory: $workspace_dir"
 
+git -C "$workspace_dir" fetch || panic "git fetch failed"
+
 commit="$(git -C "$workspace_dir" rev-parse HEAD)" || \
   panic "cannot get commit"
 tag="$(git -C "$workspace_dir" describe "$commit")" || \
