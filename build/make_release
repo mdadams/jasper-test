@@ -62,7 +62,7 @@ echo "workspace directory: $workspace_dir"
 
 commit="$(git -C "$workspace_dir" rev-parse HEAD)" || \
   panic "cannot get commit"
-tag="$(git -C "$workspace_dir" describe --exact-match "$commit")" || \
+tag="$(git -C "$workspace_dir" describe "$commit")" || \
   panic "cannot get tag"
 version="$(awk -v FS="-" '{print $2;}' <<< "$tag")" || \
   panic "cannot get version"
